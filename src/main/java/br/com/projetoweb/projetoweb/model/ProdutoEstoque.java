@@ -1,38 +1,30 @@
 package br.com.projetoweb.projetoweb.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
-@Entity
-@Table(name = "ARTESAO")
-@Builder
+@Entity(name="ESTOQUE")
 @Setter
 @Getter
-@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Artesao extends Usuario implements Serializable{
+public class ProdutoEstoque implements Serializable {
 
 	/**
 	 * 
@@ -44,11 +36,13 @@ public class Artesao extends Usuario implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
-	@OneToMany(mappedBy = "artesao", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    protected List<Produto> produtos = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "ID_PRODUTO", referencedColumnName = "ID", nullable = false)
+    protected Produto produto;
 	
-    @Column(name="MARCA")
-    protected String marca;
-    
+	@Column(name="QUANTIDADE")
+	protected Integer quantidade;
 	
+	@Column(name="QUANTIDADE")
+	protected LocalDateTime dataReposicao;
 }
