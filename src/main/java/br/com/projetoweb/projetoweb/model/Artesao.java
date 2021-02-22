@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -34,7 +37,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Artesao extends Usuario implements Serializable{
+public class Artesao implements Serializable{
 
 	/**
 	 * 
@@ -46,6 +49,20 @@ public class Artesao extends Usuario implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
+	@Size (max = 50)
+    @Column(name = "NOME")
+    protected String nome;
+	
+    @Size (min = 3,max = 20)
+    @Pattern (regexp = "((?=.*\\p{Digit}) (?=.*\\p{Lower}) (?=.*\\p{Upper}).{3,30})")
+    @Column(name = "SENHA")
+    protected String senha;
+    
+    @Email
+    @Size (max = 35)
+    @Column(name = "EMAIL")
+    protected String email;
+    
 	@OneToMany(targetEntity = Produto.class, orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Fetch(FetchMode.SUBSELECT)
 	protected List<Produto> produtos;
