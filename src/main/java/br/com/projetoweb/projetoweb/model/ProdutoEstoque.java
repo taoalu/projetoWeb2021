@@ -42,6 +42,6 @@ public class ProdutoEstoque implements Serializable {
 	@Column(name="QUANTIDADE")
 	protected Integer quantidade;
 	
-	@Column(name="QUANTIDADE")
+	@Column(name="DATA_REPOSICAO")
 	protected LocalDateTime dataReposicao;
 }

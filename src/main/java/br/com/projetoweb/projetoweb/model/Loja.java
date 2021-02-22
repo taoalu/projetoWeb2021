@@ -16,9 +16,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.validator.constraints.NotBlank;
-
-import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,8 +41,6 @@ public class Loja implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
-	@NotBlank
-    @NotNull
     @Size (max = 50)
     @Column(name = "NOME")
     private String nome;
