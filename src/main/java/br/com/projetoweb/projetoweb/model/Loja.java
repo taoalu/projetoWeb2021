@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.sun.istack.NotNull;
@@ -51,9 +53,11 @@ public class Loja implements Serializable {
     @Embedded
 	private Endereco endereco;
 	
-    @OneToMany(mappedBy = "loja", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<ProdutoEstoque> produtoEstoque;
+    @OneToMany(targetEntity = ProdutoEstoque.class, orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
+ 	private List<ProdutoEstoque> produtoEstoque;
 	
-    @OneToMany(mappedBy = "loja", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Venda.class, orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
 	private List<Venda> vendas;
 }

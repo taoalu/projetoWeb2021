@@ -1,7 +1,6 @@
 package br.com.projetoweb.projetoweb.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,6 +39,7 @@ public class Lojista extends Usuario implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
-    @OneToMany(mappedBy = "lojista", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Loja> lojas = new ArrayList<Loja>();
+	@OneToMany(targetEntity = Loja.class, orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
+	public List<Loja> lojas;
 }

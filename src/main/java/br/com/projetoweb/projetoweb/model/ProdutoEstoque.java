@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,8 +35,8 @@ public class ProdutoEstoque implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "ID_PRODUTO", referencedColumnName = "ID", nullable = false)
+	@ManyToOne
+    @JoinColumn
     protected Produto produto;
 	
 	@Column(name="QUANTIDADE")

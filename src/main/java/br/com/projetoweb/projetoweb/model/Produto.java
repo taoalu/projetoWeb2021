@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,6 +30,11 @@ import lombok.ToString;
 @ToString
 public class Produto implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -42,8 +46,8 @@ public class Produto implements Serializable{
     @Column(name = "PRECO")
     protected Double preco;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ID_ARTESAO", referencedColumnName = "ID_USUARIO", nullable = false)
+    @ManyToOne
+    @JoinColumn
     protected Artesao artesao;
 
 }
