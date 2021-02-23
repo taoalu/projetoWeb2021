@@ -1,13 +1,20 @@
 package br.com.projetoweb.projetoweb.web;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import br.com.projetoweb.projetoweb.model.Artesao;
 import br.com.projetoweb.projetoweb.service.ArtesaoService;
@@ -40,5 +47,26 @@ public class ArtesaoController {
 			
 		
 			return this.service.listar(artesao, page - 1, size, orderBy, order);
+	    }
+		
+		@ApiOperation("Rota responsável por salvar um Artesao.")
+	    @PostMapping
+	    public ResponseEntity<Artesao> inserir(@RequestBody @Valid ArtesaoDTO artesao) {
+
+			return ResponseEntity.ok(this.service.inserir(artesao));
+	    }
+		
+		@ApiOperation("Rota responsável por atualizar um Artesao")
+	    @PutMapping
+	    public ResponseEntity<Artesao> atualizar(@RequestBody @Valid ArtesaoDTO artesao) {
+		
+			return ResponseEntity.ok(this.service.atualizar(artesao));
+	    }
+		
+		@ApiOperation("Recebe o ID da produção e a exclui do banco.")
+	    @DeleteMapping("/{id}")
+	    public ResponseEntity<Artesao> exluir(@PathVariable(required = true) Long id) {
+			this.service.excluir(id);
+			return ResponseEntity.noContent().build();
 	    }
 }
