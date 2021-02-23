@@ -1,6 +1,7 @@
 package br.com.projetoweb.projetoweb.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +20,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "PRODUTO")
+@Entity	
+@Table(name="VENDA")
 @Builder
 @Setter
 @Getter
@@ -28,26 +29,23 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Produto implements Serializable{
+public class Venda implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
-	@Column(name = "DESCRICAO")
-    protected String descricao;
-
-    @Column(name = "PRECO")
-    protected Double preco;
-
-    @ManyToOne
+	@ManyToOne
     @JoinColumn
-    protected Artesao artesao;
-
+	private ProdutoEstoque produtoEstoque;
+	
+	@Column(name="QUANTIDADE")
+	private Integer quantidade;
+	
+	@Column(name="DATA_VENDA")
+	private LocalDateTime dataVenda;
 }

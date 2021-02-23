@@ -1,6 +1,7 @@
 package br.com.projetoweb.projetoweb.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,26 +10,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "PRODUTO")
-@Builder
+@Entity(name="ESTOQUE")
 @Setter
 @Getter
-@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Produto implements Serializable{
+public class ProdutoEstoque implements Serializable {
 
 	/**
 	 * 
@@ -40,14 +35,13 @@ public class Produto implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
-	@Column(name = "DESCRICAO")
-    protected String descricao;
-
-    @Column(name = "PRECO")
-    protected Double preco;
-
-    @ManyToOne
+	@ManyToOne
     @JoinColumn
-    protected Artesao artesao;
-
+    protected Produto produto;
+	
+	@Column(name="QUANTIDADE")
+	protected Integer quantidade;
+	
+	@Column(name="DATA_REPOSICAO")
+	protected LocalDateTime dataReposicao;
 }

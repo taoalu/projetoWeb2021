@@ -27,9 +27,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Entity
-@Table(name = "ARTESAO")
+@Table(name = "LOJISTA")
 @Builder
 @Setter
 @Getter
@@ -37,7 +36,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Artesao implements Serializable{
+public class Lojista implements Serializable{
 
 	/**
 	 * 
@@ -52,8 +51,8 @@ public class Artesao implements Serializable{
 	@Size (max = 50)
     @Column(name = "NOME")
     protected String nome;
-	
     @Size (min = 3,max = 20)
+    
     @Pattern (regexp = "((?=.*\\p{Digit}) (?=.*\\p{Lower}) (?=.*\\p{Upper}).{3,30})")
     @Column(name = "SENHA")
     protected String senha;
@@ -62,13 +61,8 @@ public class Artesao implements Serializable{
     @Size (max = 35)
     @Column(name = "EMAIL")
     protected String email;
-    
-	@OneToMany(targetEntity = Produto.class, orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	
+	@OneToMany(targetEntity = Loja.class, orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Fetch(FetchMode.SUBSELECT)
-	protected List<Produto> produtos;
-	
-    @Column(name="MARCA")
-    protected String marca;
-    
-	
+	public List<Loja> lojas;
 }

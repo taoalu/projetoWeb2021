@@ -5,39 +5,31 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
-@Entity
-@Table(name = "ARTESAO")
-@Builder
+@Entity(name="LOJA")
 @Setter
 @Getter
-@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Artesao implements Serializable{
+public class Loja implements Serializable {
 
 	/**
 	 * 
@@ -49,26 +41,18 @@ public class Artesao implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
-	@Size (max = 50)
+    @Size (max = 50)
     @Column(name = "NOME")
-    protected String nome;
+    private String nome;
 	
-    @Size (min = 3,max = 20)
-    @Pattern (regexp = "((?=.*\\p{Digit}) (?=.*\\p{Lower}) (?=.*\\p{Upper}).{3,30})")
-    @Column(name = "SENHA")
-    protected String senha;
-    
-    @Email
-    @Size (max = 35)
-    @Column(name = "EMAIL")
-    protected String email;
-    
-	@OneToMany(targetEntity = Produto.class, orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Embedded
+	private Endereco endereco;
+	
+    @OneToMany(targetEntity = ProdutoEstoque.class, orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Fetch(FetchMode.SUBSELECT)
-	protected List<Produto> produtos;
+ 	private List<ProdutoEstoque> produtoEstoque;
 	
-    @Column(name="MARCA")
-    protected String marca;
-    
-	
+    @OneToMany(targetEntity = Venda.class, orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
+	private List<Venda> vendas;
 }
