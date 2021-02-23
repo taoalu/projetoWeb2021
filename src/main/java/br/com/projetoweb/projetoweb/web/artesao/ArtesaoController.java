@@ -1,4 +1,4 @@
-package br.com.projetoweb.projetoweb.web;
+package br.com.projetoweb.projetoweb.web.artesao;
 
 import javax.validation.Valid;
 
@@ -63,7 +63,7 @@ public class ArtesaoController {
 			return ResponseEntity.ok(this.service.atualizar(artesao));
 	    }
 		
-		@ApiOperation("Recebe o ID da produção e a exclui do banco.")
+		@ApiOperation("Recebe o ID da artesao e a exclui do banco.")
 	    @DeleteMapping("/{id}")
 	    public ResponseEntity<Artesao> exluir(@PathVariable(required = true) Long id) {
 			this.service.excluir(id);

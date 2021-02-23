@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.projetoweb.projetoweb.model.Artesao;
 import br.com.projetoweb.projetoweb.repository.ArtesaoRepository;
-import br.com.projetoweb.projetoweb.web.ArtesaoDTO;
+import br.com.projetoweb.projetoweb.web.artesao.ArtesaoDTO;
 
 @Service
 public class ArtesaoService {
