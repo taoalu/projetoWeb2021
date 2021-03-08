@@ -18,6 +18,7 @@ import br.com.projetoweb.projetoweb.model.Lojista;
 import br.com.projetoweb.projetoweb.repository.LojistaRepository;
 import br.com.projetoweb.projetoweb.web.lojista.LojistaDTO;
 
+@Service
 public class LojistaService {
 
 	@Autowired
