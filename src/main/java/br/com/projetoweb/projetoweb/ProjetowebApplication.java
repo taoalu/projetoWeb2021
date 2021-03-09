@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -16,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.projetoweb.projetoweb.model.Usuario;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class ProjetowebApplication {
 
 	public static void main(String[] args) {
