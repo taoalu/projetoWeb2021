@@ -28,23 +28,23 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Produto implements Serializable{
+public class Produto implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name = "ID")
+    @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-	
-	@Column(name = "DESCRICAO")
+
+    @Column(name = "DESCRICAO")
     protected String descricao;
 
     @Column(name = "PRECO")
     protected Double preco;
+
+    @Column(name = "IMG")
+    protected String imgUrl;
 
     @ManyToOne
     @JoinColumn
