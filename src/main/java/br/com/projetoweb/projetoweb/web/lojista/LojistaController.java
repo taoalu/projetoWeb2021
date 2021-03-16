@@ -29,46 +29,40 @@ import io.swagger.annotations.ApiOperation;
 public class LojistaController {
 
 	@Autowired
-    private LojistaService service;
-	
+	private LojistaService service;
+
 	@ApiOperation("Listar todos Lojista")
-    @GetMapping
-    public Page<Lojista> listar(@RequestParam(required = false) String nome,
-    		@RequestParam(required = false) String email,
-    		@RequestParam(required = false) String marca,
-    		@RequestParam(required = false, defaultValue = "1") Integer page,
+	@GetMapping
+	public Page<Lojista> listar(@RequestParam(required = false) String nome,
+			@RequestParam(required = false) String email, @RequestParam(required = false) String marca,
+			@RequestParam(required = false, defaultValue = "1") Integer page,
 			@RequestParam(required = false, defaultValue = "15") Integer size,
 			@RequestParam(required = false, defaultValue = "id") String orderBy,
-			@RequestParam(required = false, defaultValue = "desc") String order) 
-    {
-	
-		LojistaDTO lojista = LojistaDTO.builder()
-				.nome(nome)
-				.email(email)
-				.build();
-		
-	
+			@RequestParam(required = false, defaultValue = "desc") String order) {
+
+		LojistaDTO lojista = LojistaDTO.builder().nome(nome).email(email).build();
+
 		return this.service.listar(lojista, page - 1, size, orderBy, order);
-    }
-	
+	}
+
 	@ApiOperation("Rota responsável por salvar um Lojista.")
-    @PostMapping
-    public ResponseEntity<Lojista> inserir(@RequestBody @Valid LojistaDTO lojista) {
+	@PostMapping
+	public ResponseEntity<Lojista> inserir(@RequestBody @Valid LojistaDTO lojista) {
 
 		return ResponseEntity.ok(this.service.inserir(lojista));
-    }
-	
+	}
+
 	@ApiOperation("Rota responsável por atualizar um Lojista")
-    @PutMapping
-    public ResponseEntity<Lojista> atualizar(@RequestBody @Valid LojistaDTO lojista) {
-	
+	@PutMapping
+	public ResponseEntity<Lojista> atualizar(@RequestBody @Valid LojistaDTO lojista) {
+
 		return ResponseEntity.ok(this.service.atualizar(lojista));
-    }
-	
+	}
+
 	@ApiOperation("Recebe o ID da Lojista e a exclui do banco.")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Lojista> exluir(@PathVariable(required = true) Long id) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Lojista> exluir(@PathVariable(required = true) Long id) {
 		this.service.excluir(id);
 		return ResponseEntity.noContent().build();
-    }
+	}
 }

@@ -25,48 +25,41 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin(origins = "*")
 public class ArtesaoController {
 
-		@Autowired
-	    private ArtesaoService service;
-		
-		@ApiOperation("Listar todos artesao")
-	    @GetMapping
-	    public Page<Artesao> listar(@RequestParam(required = false) String nome,
-	    		@RequestParam(required = false) String email,
-	    		@RequestParam(required = false) String marca,
-	    		@RequestParam(required = false, defaultValue = "1") Integer page,
-    			@RequestParam(required = false, defaultValue = "15") Integer size,
-    			@RequestParam(required = false, defaultValue = "id") String orderBy,
-    			@RequestParam(required = false, defaultValue = "desc") String order) 
-	    {
-		
-			ArtesaoDTO artesao = ArtesaoDTO.builder()
-					.nome(nome)
-					.email(email)
-					.marca(marca)
-					.build();
-			
-		
-			return this.service.listar(artesao, page - 1, size, orderBy, order);
-	    }
-		
-		@ApiOperation("Rota responsável por salvar um Artesao.")
-	    @PostMapping
-	    public ResponseEntity<Artesao> inserir(@RequestBody @Valid ArtesaoDTO artesao) {
+	@Autowired
+	private ArtesaoService service;
 
-			return ResponseEntity.ok(this.service.inserir(artesao));
-	    }
-		
-		@ApiOperation("Rota responsável por atualizar um Artesao")
-	    @PutMapping
-	    public ResponseEntity<Artesao> atualizar(@RequestBody @Valid ArtesaoDTO artesao) {
-		
-			return ResponseEntity.ok(this.service.atualizar(artesao));
-	    }
-		
-		@ApiOperation("Recebe o ID da artesao e a exclui do banco.")
-	    @DeleteMapping("/{id}")
-	    public ResponseEntity<Artesao> exluir(@PathVariable(required = true) Long id) {
-			this.service.excluir(id);
-			return ResponseEntity.noContent().build();
-	    }
+	@ApiOperation("Listar todos artesao")
+	@GetMapping
+	public Page<Artesao> listar(@RequestParam(required = false) String nome,
+			@RequestParam(required = false) String email, @RequestParam(required = false) String marca,
+			@RequestParam(required = false, defaultValue = "1") Integer page,
+			@RequestParam(required = false, defaultValue = "15") Integer size,
+			@RequestParam(required = false, defaultValue = "id") String orderBy,
+			@RequestParam(required = false, defaultValue = "desc") String order) {
+
+		ArtesaoDTO artesao = ArtesaoDTO.builder().nome(nome).email(email).marca(marca).build();
+
+		return this.service.listar(artesao, page - 1, size, orderBy, order);
+	}
+
+	@ApiOperation("Rota responsável por salvar um Artesao.")
+	@PostMapping
+	public ResponseEntity<Artesao> inserir(@RequestBody @Valid ArtesaoDTO artesao) {
+
+		return ResponseEntity.ok(this.service.inserir(artesao));
+	}
+
+	@ApiOperation("Rota responsável por atualizar um Artesao")
+	@PutMapping
+	public ResponseEntity<Artesao> atualizar(@RequestBody @Valid ArtesaoDTO artesao) {
+
+		return ResponseEntity.ok(this.service.atualizar(artesao));
+	}
+
+	@ApiOperation("Recebe o ID da artesao e a exclui do banco.")
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Artesao> exluir(@PathVariable(required = true) Long id) {
+		this.service.excluir(id);
+		return ResponseEntity.noContent().build();
+	}
 }

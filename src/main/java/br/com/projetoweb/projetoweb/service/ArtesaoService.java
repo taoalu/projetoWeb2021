@@ -23,68 +23,66 @@ public class ArtesaoService {
 
 	@Autowired
 	private ArtesaoRepository repository;
-	
+
 	public Optional<Artesao> obter(Long id) {
 		return this.repository.findById(id);
 	}
-	
+
 	public List<Artesao> listarTodos() {
 		return repository.findAll();
 	}
-	
+
 	public Page<Artesao> listar(ArtesaoDTO dto, Integer page, Integer size, String orderBy, String order) {
-		
+
 		page = page >= 0 ? page : 0;
-		
+
 		Page<Artesao> pagina = this.repository.findAll((Specification<Artesao>) (root, cq, cb) -> {
-	            Predicate p = cb.conjunction();
-	            
-		    if (dto.getNome() != null) {
-		    	p = cb.and(p, cb.greaterThanOrEqualTo(root.get("nome"), cb.literal(dto.getNome())));
-		    }
-		    if (dto.getEmail() != null) {
-		    	p = cb.and(p, cb.lessThanOrEqualTo(root.get("email"), cb.literal(dto.getEmail())));
-		    }
-		    if (dto.getMarca() != null) {
-		    	p = cb.and(p, cb.lessThanOrEqualTo(root.get("marca"), cb.literal(dto.getMarca())));
-		    }
-	            
-	            return p;
-	        }, PageRequest.of(page, size, Sort.by(Direction.fromString(order), orderBy)));
+			Predicate p = cb.conjunction();
+
+			if (dto.getNome() != null) {
+				p = cb.and(p, cb.greaterThanOrEqualTo(root.get("nome"), cb.literal(dto.getNome())));
+			}
+			if (dto.getEmail() != null) {
+				p = cb.and(p, cb.lessThanOrEqualTo(root.get("email"), cb.literal(dto.getEmail())));
+			}
+			if (dto.getMarca() != null) {
+				p = cb.and(p, cb.lessThanOrEqualTo(root.get("marca"), cb.literal(dto.getMarca())));
+			}
+
+			return p;
+		}, PageRequest.of(page, size, Sort.by(Direction.fromString(order), orderBy)));
 
 		return pagina;
 	}
-	
+
 	@Transactional
-    public Artesao inserir(ArtesaoDTO novoArtesao) {
+	public Artesao inserir(ArtesaoDTO novoArtesao) {
 
 		Artesao artesao = Artesao.builder().marca(novoArtesao.getMarca()).produtos(novoArtesao.getProdutos())
-				.nome(novoArtesao.getNome()).email(novoArtesao.getEmail())
-				.senha(novoArtesao.getSenha())
-		.build();
+				.nome(novoArtesao.getNome()).email(novoArtesao.getEmail()).senha(novoArtesao.getSenha()).build();
 
 		return this.repository.save(artesao);
-    }
-	
+	}
+
 	@Transactional
-    public Artesao atualizar(ArtesaoDTO artesaoDTO) {
-	
+	public Artesao atualizar(ArtesaoDTO artesaoDTO) {
+
 		Artesao artesao = repository.findById(artesaoDTO.getId()).get();
-		
+
 		artesao.setNome(artesaoDTO.getNome());
 		artesao.setEmail(artesaoDTO.getEmail());
 		artesao.setMarca(artesaoDTO.getMarca());
 		artesao.setSenha(artesaoDTO.getSenha());
 		artesao.setProdutos(artesaoDTO.getProdutos());
-	
+
 		return this.repository.save(artesao);
-    }
-	
+	}
+
 	@Transactional
-    public void excluir(Long id) {
-		
-		if(id != null && id > 0) {
+	public void excluir(Long id) {
+
+		if (id != null && id > 0) {
 			repository.deleteById(id);
 		}
-    }
+	}
 }
