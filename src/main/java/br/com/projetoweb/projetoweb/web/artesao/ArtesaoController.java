@@ -1,4 +1,4 @@
-package br.com.projetoweb.projetoweb.controller;
+package br.com.projetoweb.projetoweb.web.artesao;
 
 import javax.validation.Valid;
 
@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.projetoweb.projetoweb.model.Artesao;
 import br.com.projetoweb.projetoweb.service.ArtesaoService;
 import io.swagger.annotations.ApiOperation;
-
-import br.com.projetoweb.projetoweb.web.artesao.ArtesaoDTO;
 
 @RestController
 @RequestMapping("api/artesao")

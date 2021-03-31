@@ -1,4 +1,4 @@
-package br.com.projetoweb.projetoweb.controller;
+package br.com.projetoweb.projetoweb.web.lojista;
 
 import javax.validation.Valid;
 
@@ -16,36 +16,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.projetoweb.projetoweb.model.Produto;
+import br.com.projetoweb.projetoweb.model.Artesao;
 import br.com.projetoweb.projetoweb.model.Lojista;
 import br.com.projetoweb.projetoweb.service.ArtesaoService;
 import br.com.projetoweb.projetoweb.service.LojistaService;
-import br.com.projetoweb.projetoweb.service.ProdutoService;
-import br.com.projetoweb.projetoweb.web.produto.ProdutoDTO;
+import br.com.projetoweb.projetoweb.web.artesao.ArtesaoDTO;
 import io.swagger.annotations.ApiOperation;
 
-import br.com.projetoweb.projetoweb.web.lojista.LojistaDTO;
-
 @RestController
-@RequestMapping("api/produto")
+@RequestMapping("api/lojista")
 @CrossOrigin(origins = "*")
-public class ProdutoController {
+public class LojistaController {
 
 	@Autowired
-	private ProdutoService service;
-	
-	@ApiOperation("Listar todos Produtos")
+	private LojistaService service;
+
+	@ApiOperation("Listar todos Lojista")
 	@GetMapping
-	public Page<Produto> listar(@RequestParam(required = false) String nome,
+	public Page<Lojista> listar(@RequestParam(required = false) String nome,
 			@RequestParam(required = false) String email, @RequestParam(required = false) String marca,
 			@RequestParam(required = false, defaultValue = "1") Integer page,
 			@RequestParam(required = false, defaultValue = "15") Integer size,
 			@RequestParam(required = false, defaultValue = "id") String orderBy,
 			@RequestParam(required = false, defaultValue = "desc") String order) {
 
-		ProdutoDTO produto = ProdutoDTO.builder().descricao();
+		LojistaDTO lojista = LojistaDTO.builder().nome(nome).email(email).build();
 
-		return this.service.listarProdutos(produto, page - 1, size, orderBy, order);
+		return this.service.listar(lojista, page - 1, size, orderBy, order);
 	}
 
 	@ApiOperation("Rota responsável por salvar um Lojista.")
