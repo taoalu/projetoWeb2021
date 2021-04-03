@@ -36,7 +36,7 @@ public class EstoqueController {
     @GetMapping
     public Page<ProdutoEstoque> listar(@RequestParam(required = false) LocalDateTime dataReposicao,
     		@RequestParam(required = false) Long idProduto,
-    		@RequestParam(required = false) double preco,
+    		@RequestParam(required = false) Double preco,
     		@RequestParam(required = false) Integer quantidade,
     		@RequestParam(required = false, defaultValue = "1") Integer page,
 			@RequestParam(required = false, defaultValue = "15") Integer size,
