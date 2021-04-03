@@ -32,7 +32,7 @@ public class ProdutoController {
     @GetMapping
     public Page<Produto> listar(@RequestParam(required = false) String descricao,
     		@RequestParam(required = false) Long idArtesao,
-    		@RequestParam(required = false) double preco,
+    		@RequestParam(required = false) Double preco,
     		@RequestParam(required = false, defaultValue = "1") Integer page,
 			@RequestParam(required = false, defaultValue = "15") Integer size,
 			@RequestParam(required = false, defaultValue = "id") String orderBy,
