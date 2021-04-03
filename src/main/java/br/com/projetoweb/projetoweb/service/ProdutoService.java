@@ -6,10 +6,6 @@ import java.util.Optional;
 import javax.persistence.criteria.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,11 +33,9 @@ public class ProdutoService {
 		return repository.findAll();
 	}
 	
-	public Page<Produto> listar(ProdutoDTO dto, Integer page, Integer size, String orderBy, String order) {
+	public List<Produto> listar(ProdutoDTO dto) {
 		
-		page = page >= 0 ? page : 0;
-		
-		Page<Produto> pagina = this.repository.findAll((Specification<Produto>) (root, cq, cb) -> {
+		List<Produto> pagina = this.repository.findAll((Specification<Produto>) (root, cq, cb) -> {
 	            Predicate p = cb.conjunction();
 	            
 		    if (dto.getDescricao() != null) {
@@ -55,7 +49,7 @@ public class ProdutoService {
 		    }
 	            
 	            return p;
-	        }, PageRequest.of(page, size, Sort.by(Direction.fromString(order), orderBy)));
+	        });
 
 		return pagina;
 	}

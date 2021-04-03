@@ -1,9 +1,10 @@
 package br.com.projetoweb.projetoweb.web.venda;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.projetoweb.projetoweb.model.Produto;
 import br.com.projetoweb.projetoweb.model.Venda;
 import br.com.projetoweb.projetoweb.service.VendaService;
-import br.com.projetoweb.projetoweb.web.produto.ProdutoDTO;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
@@ -32,13 +31,9 @@ public class VendaController {
 	
 	@ApiOperation("Listar todas vendas")
     @GetMapping
-    public Page<Venda> listar(
+    public List<Venda> listar(
     		@RequestParam(required = false) Long idArtesao,
-    		@RequestParam(required = false) Long idLojista,
-    		@RequestParam(required = false, defaultValue = "1") Integer page,
-			@RequestParam(required = false, defaultValue = "15") Integer size,
-			@RequestParam(required = false, defaultValue = "id") String orderBy,
-			@RequestParam(required = false, defaultValue = "desc") String order) 
+    		@RequestParam(required = false) Long idLojista) 
     {
 	
 		VendaDTO venda = VendaDTO.builder()
@@ -46,7 +41,7 @@ public class VendaController {
 				.build();
 		
 	
-		return this.vendaService.listar(venda, page - 1, size, orderBy, order);
+		return this.vendaService.listar(venda);
     }
 	
 	@ApiOperation("Rota responsável por salvar uma Venda.")
