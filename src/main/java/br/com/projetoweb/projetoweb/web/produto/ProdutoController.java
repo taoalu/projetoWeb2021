@@ -1,9 +1,10 @@
 package br.com.projetoweb.projetoweb.web.produto;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,13 +31,9 @@ public class ProdutoController {
 	
 	@ApiOperation("Listar todos artesao")
     @GetMapping
-    public Page<Produto> listar(@RequestParam(required = false) String descricao,
+    public List<Produto> listar(@RequestParam(required = false) String descricao,
     		@RequestParam(required = false) Long idArtesao,
-    		@RequestParam(required = false) double preco,
-    		@RequestParam(required = false, defaultValue = "1") Integer page,
-			@RequestParam(required = false, defaultValue = "15") Integer size,
-			@RequestParam(required = false, defaultValue = "id") String orderBy,
-			@RequestParam(required = false, defaultValue = "desc") String order) 
+    		@RequestParam(required = false) Double preco) 
     {
 	
 		ProdutoDTO prod = ProdutoDTO.builder()
@@ -46,7 +43,7 @@ public class ProdutoController {
 				.build();
 		
 	
-		return this.produtoService.listar(prod, page - 1, size, orderBy, order);
+		return this.produtoService.listar(prod);
     }
 	
 	@ApiOperation("Rota responsável por salvar um Produto.")
