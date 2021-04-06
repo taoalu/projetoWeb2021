@@ -49,7 +49,7 @@ public class Artesao implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
-	@Size (max = 50)
+	@Size (max = 255)
     @Column(name = "NOME")
     protected String nome;
 	
@@ -59,7 +59,7 @@ public class Artesao implements Serializable{
     protected String senha;
     
     @Email
-    @Size (max = 35)
+    @Size (max = 255)
     @Column(name = "EMAIL")
     protected String email;
     
@@ -68,6 +68,7 @@ public class Artesao implements Serializable{
 	protected List<Produto> produtos;
 	
     @Column(name="MARCA")
+    @Size (max = 255)
     protected String marca;
     
 	
