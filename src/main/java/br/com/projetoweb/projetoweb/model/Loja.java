@@ -41,7 +41,7 @@ public class Loja implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
-    @Size (max = 50)
+    @Size (max = 255)
     @Column(name = "NOME")
     private String nome;
 	

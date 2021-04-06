@@ -48,17 +48,17 @@ public class Lojista implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 	
-	@Size (max = 50)
+	@Size (max = 255)
     @Column(name = "NOME")
     protected String nome;
-    @Size (min = 3,max = 20)
     
+    @Size (min = 3,max = 20)    
     @Pattern (regexp = "((?=.*\\p{Digit}) (?=.*\\p{Lower}) (?=.*\\p{Upper}).{3,30})")
     @Column(name = "SENHA")
     protected String senha;
     
     @Email
-    @Size (max = 35)
+    @Size (max = 255)
     @Column(name = "EMAIL")
     protected String email;
 	

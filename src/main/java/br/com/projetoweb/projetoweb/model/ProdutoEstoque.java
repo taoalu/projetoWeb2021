@@ -27,9 +27,6 @@ import lombok.ToString;
 @Builder
 public class ProdutoEstoque implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
